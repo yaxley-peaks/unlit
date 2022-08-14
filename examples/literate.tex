@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage{csquotes}
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{verbatim}
+
+\newenvironment{code}{\footnotesize\verbatim}{\endverbatim\normalsize}
+
+\title{Literate programming}
+\author{Yaxley Peaks}
+\begin{document}
+\maketitle
+\section*{Literate Programming}
+Here's Wikipedia on literate programming:
+\begin{displayquote}
+    Literate programming is a programming paradigm introduced by Donald Knuth in which a computer program is given an explanation of its logic in a natural language, such as English, interspersed (embedded) with snippets of macros and traditional source code, from which compilable source code can be generated.The approach is used in scientific computing and in data science routinely for reproducible research and open access purposes. Literate programming tools are used by millions of programmers today.
+\end{displayquote}
+
+This package however, does not enable complete literate programming. Instead it chooses to go the \href{https://wiki.haskell.org/Literate_programming}{haskell route} and enable partial literate programming.
+
+\section{Getting Started}
+\subsection{Installation}
+Add stuff later here.
+\subsection{Usage}
+\begin{verbatim}
+    unlit -i <IN-FILE> [-o <OUT-FILE>] [-c <COMMENT SYMBOLS>]
+    \end{verbatim}
+
+The input file will usually be a \LaTeX  file and truly, any \LaTeX  file is allowed. Just enclose all source code is in a \verb|code| environment.
+
+\subsection{Notes}
+\verb|<IN-FILE>| can be any file. As long as all the source code is between \\
+\verb|\begin{code}| and \verb|\end{code}|.
+
+\section{Example}
+We will be writing a Bubble sort program in C to demonstrate our literate abilities.
+
+\subsection{Setting up}
+\begin{code}
+    #include<stdio.h>
+    void swap(int *xp, int *yp) {
+    int temp = *xp;
+    *xp = *yp;
+    *yp = temp;
+    }
+\end{code}
+After the obligatory includes, the \verb|swap| function is just a utility function to stream line the value swapping process. Given two pointers to \verb|int|s, it swaps the underlying numbers.
+\begin{code}
+    void bubbleSort(int arr[], int n) {
+\end{code}
+The function takes an array of \verb|int|s and the length of the array and sorts it in place.
+\begin{code}
+    int i, j;
+    for (i = 0; i < n - 1; i++)
+        for (j = 0; j < n - i - 1; j++)
+\end{code}
+We loop over the array in this fashion and,
+\begin{code}
+            if (arr[j] > arr[j + 1])
+                swap(&arr[j], &arr[j + 1]);
+\end{code}
+Swap the elements if the next one is bigger than the current one.
+\begin{code}
+    }
+\end{code}
+This is the entire algorithm. All code following this is just driver functions.
+
+\begin{code}
+    int main(){
+        int a[5] = {3,2,4,1,5};
+        bubbleSort(a,5);
+        for(int i = 0; i < 5; i++){
+            printf("%d\n",a[i]);
+        }
+    }
+\end{code}
+\end{document}
