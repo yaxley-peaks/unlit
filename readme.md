@@ -1,5 +1,7 @@
 ### Literate Programming for all
 
+Haskell style literate programming for all languages
+
 #### Installation
 1. Install the rust compiler and cargo
 2. Clone this repository
