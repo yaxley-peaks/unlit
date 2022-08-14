@@ -19,11 +19,22 @@ This package however, does not enable complete literate programming. Instead it 
 
 \section{Getting Started}
 \subsection{Installation}
-Add stuff later here.
+\begin{verbatim}
+    git clone https://github.com/yaxley-peaks/unlit
+    cd unlit
+    cargo install --path .
+\end{verbatim}
 \subsection{Usage}
 \begin{verbatim}
-    unlit -i <IN-FILE> [-o <OUT-FILE>] [-c <COMMENT SYMBOLS>]
-    \end{verbatim}
+    unlit -i <IN-FILE> [-o <OUT-FILE>] [-c <COMMENT-SYMBOLS>]
+\end{verbatim}
+
+Where:
+\begin{itemize}
+    \item \verb|IN-FILE|: The input file. (Usually a \verb|.tex|, such as this.)
+    \item \verb|OUT-FILE|: The output file. Writes to \verb|stdout| if none provided.
+    \item \verb|COMMENT-SYMBOLS|: Whatever symbols introduce a single line comment in your language. Defaults to \verb|//| if none are provided.
+\end{itemize}
 
 The input file will usually be a \LaTeX  file and truly, any \LaTeX  file is allowed. Just enclose all source code is in a \verb|code| environment.
 
@@ -38,10 +49,10 @@ We will be writing a Bubble sort program in C to demonstrate our literate abilit
 \begin{code}
     #include<stdio.h>
     void swap(int *xp, int *yp) {
-    int temp = *xp;
-    *xp = *yp;
-    *yp = temp;
-    }
+            int temp = *xp;
+            *xp = *yp;
+            *yp = temp;
+        }
 \end{code}
 After the obligatory includes, the \verb|swap| function is just a utility function to stream line the value swapping process. Given two pointers to \verb|int|s, it swaps the underlying numbers.
 \begin{code}
@@ -51,12 +62,12 @@ The function takes an array of \verb|int|s and the length of the array and sorts
 \begin{code}
     int i, j;
     for (i = 0; i < n - 1; i++)
-        for (j = 0; j < n - i - 1; j++)
+    for (j = 0; j < n - i - 1; j++)
 \end{code}
 We loop over the array in this fashion and,
 \begin{code}
-            if (arr[j] > arr[j + 1])
-                swap(&arr[j], &arr[j + 1]);
+    if (arr[j] > arr[j + 1])
+    swap(&arr[j], &arr[j + 1]);
 \end{code}
 Swap the elements if the next one is bigger than the current one.
 \begin{code}
@@ -66,11 +77,22 @@ This is the entire algorithm. All code following this is just driver functions.
 
 \begin{code}
     int main(){
-        int a[5] = {3,2,4,1,5};
-        bubbleSort(a,5);
-        for(int i = 0; i < 5; i++){
-            printf("%d\n",a[i]);
+            int a[5] = {3,2,4,1,5};
+            bubbleSort(a,5);
+            for(int i = 0; i < 5; i++){
+                    printf("%d\n",a[i]);
+                }
         }
-    }
 \end{code}
+And we are done. This file will generate a valid C program. Try it! Run (assuming you have installed \verb|unlit| and are in the root directory of this app.):
+\begin{verbatim}
+    unlit -i examples/literate.tex -o bubblesort.c
+    gcc -o bsort bubblesort.c
+    ./bsort
+\end{verbatim}
+\section*{Appendix 1}
+This doesn't actually have all the features of literate haskell. For example: There is no way to ignore code in the literate form. This may or may not change soon. Do not rely on this package. I wrote it when I was bored. 
+
+However, pull requests are welcome.
+
 \end{document}
