@@ -1,4 +1,4 @@
-### Literate Programming for all
+### Literate Programming for all!
 
 Haskell style literate programming for all languages
 
