@@ -25,6 +25,9 @@ Haskell style literate programming for all languages
 4. Run: `cargo install --path .`
 
 #### Usage
+
+Please see `examples/literate.pdf` for more info.
+
 ```
 USAGE:
     unlit [OPTIONS] -i <IN_FILE>
